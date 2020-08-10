@@ -12,6 +12,12 @@ with open('songs.txt', 'r') as songs_file:
 # the instrumentals.txt file is where all of the instrumental song links will be stored
 instrumentals_file = open('instrumentals.txt', 'w')
 
+
+end_of_search = input("(default is instrumental, press enter for default) \nWhat would you like to append to the end of each search result: ")
+if len(end_of_search) <= 0:
+    end_of_search = "instrumental"
+
+
 for i in range(len(spotify_links)):
     # this is a bit unnecesary, will make this better in the next version
     song_id = ''.join(spotify_links[i]).split('https://open.spotify.com/track/')[1].split('\n')[0]
@@ -22,7 +28,7 @@ for i in range(len(spotify_links)):
     soup = BeautifulSoup(source, 'lxml')
     spotify_song_title = soup.find("title").text
     title = spotify_song_title.split(', a song')
-    youtube_search_title = f"{title[0]}{title[1].split(' on Spotify')[0]} instrumental"
+    youtube_search_title = f"{title[0]}{title[1].split(' on Spotify')[0]} {end_of_search}"
     print(f"Searching for: {youtube_search_title}")
 
 
